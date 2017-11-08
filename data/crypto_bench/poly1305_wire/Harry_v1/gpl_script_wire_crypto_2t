@@ -1,0 +1,30 @@
+set term jpeg font 'Verdana,20' size 2148, 2048 
+# set term jpeg
+
+#CONV=(8./(1000.*1000.*1000.)) # conversion from Gbps 
+set out 'wire_poly1305_2t.jpg'
+set ylabel 'Speed [Gbps]'
+set xlabel 'packet size [bytes]'
+unset autoscale y
+set yrange [0:*]
+set ytics ()
+set ytics add ("0.0 Gbps" 0)
+set for [i=1:200] ytics add (sprintf("%.1f Gbps (%.1f s/GB)", (i/2.), 8. / (i/2.)) (i/2.))
+set size ratio 1
+set format x '%.0f'
+set logscale x 2
+set grid xtics lc rgb "#bbbbbb" lw 1 lt 0
+set grid ytics lc rgb "#bbbbbb" lw 1 lt 0
+# set y2tics 20 nomirror tc lt 2
+set autoscale y2
+#set y2range [(0*CONV):(10*CONV)] reverse
+#set y2tics 1*CONV
+#set y2label 'Time to process data [s/GB]' tc lt 2
+set palette model RGB defined ( -1 0 0 0 , -0.5 0 0 0, -0.001 0 0 0, 0 1 0 0 , 0.25 1 1 0, 0.5 0 1 0, 0.50001 0 1 1, 1.0 1 0 1 )
+set title '10x2 gbps wire -> crypto poly1305 auth ; 2 thread, Harry' font 'Verdana,30'
+set label "Receiving data on Harry form Dragon. CRY=-1 onetime auth, poly1305)\nOne message is authed, HMAC is calculated.\ngitrev: a39cde2129278985cfd4154ab1bb94a4978d0a43\ncpu: AMD FX(tm)-8350 Eight-Core Processor\ncomp: Harry_v1\ncommand: tunserver.elf --mode-bench 192.168.1.107 2121 crypto=-1\nwire_buf=64 wire_sock=1 wire_ios=1 wire_ios_thr=2 tuntap_weld=1\ntuntap_sock=1 tuntap_ios=1 tuntap_ios_thr=1 tuntap_weld_sleep=1\ntuntap_block mt_mutex mport wire_cpu=6,7" at graph 0.4,0.15 left # font "Symbol,16"
+
+# plot "< awk '$6!="" { print $4, $6 }' results.txt" u 1:2 w l lw 3 title "Poly authorization"
+#plot "speed_results.txt" u 1:($2/1000.) w l lw 3 title "Crypto=-1", '' u 1:(($2/1000)*CONV) w l lw 5 axes x1y2 title "time per GB"
+plot "speed_results.txt" u 1:($2/1000.) w l lw 3 title "Crypto=-1" #, '' u 1:($2*0) w l lw 5 axes x1y2 title "time per GB"
+
