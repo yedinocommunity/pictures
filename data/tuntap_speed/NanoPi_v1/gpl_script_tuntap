@@ -3,10 +3,10 @@
 set terminal pngcairo dashed font 'Verdana,20' size 4096, (9*2048)
 #set terminal pngcairo dashed font 'Verdana,20' size 3000, 1500
 # set term jpeg
-DATA_FILE='arqs-nanopi-netTest.txt'
+DATA_FILE='tuntap_results.txt'
 
 #CONV=(8./(1000.*1000.*1000.)) # conversion from Gbps
-set out 'tuntap_mt_mw_nanopi.jpg'
+set out 'tuntap_mt_mw_nanopi2.jpg'
 set ylabel 'Speed [Gbps]'
 set xlabel 'packet size [bytes]'
 unset autoscale y
@@ -48,7 +48,7 @@ set autoscale y2
 
 #  lw 4 lc rgb "#dd00dd"
 
-set multiplot layout 9,2 title "Tuntap speed ; multi thread ; Linux 'NanoPi' ;\n Gitrev:29739c6, 2017.11.21" font 'Verdana,30'
+set multiplot layout 9,2 title "Tuntap speed ; multi thread ; Linux 'NanoPi' ;\n Gitrev:b307df3, 2017.11.23" font 'Verdana,30'
 
 do for [t=1:10]{
 set title "".t." threads"
