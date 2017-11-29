@@ -34,8 +34,8 @@ set for [i=1:200] ytics add (sprintf("%.2f Gbps (%.2f s/GB)", (i*SCALE), 8. / (i
 set size ratio 1
 set format x '%.0f'
 set logscale x 2
-set grid xtics lc rgb "#bbbbbb" lw 1 lt 0
-set grid ytics lc rgb "#bbbbbb" lw 1 lt 0
+set grid xtics lw 2 lt 0
+set grid ytics lw 2 lt 0
 # set y2tics 20 nomirror tc lt 2
 set autoscale y2
 #set y2range [(0*CONV):(10*CONV)] reverse
